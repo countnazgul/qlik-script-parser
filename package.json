@@ -1,6 +1,6 @@
 {
   "name": "qlik-script-parser",
-  "version": "0.0.1",
+  "version": "0.0.2",
   "description": "PEG.js parser for Qlik Scripts",
   "main": "index.js",
   "scripts": {
@@ -17,7 +17,7 @@
   },
   "homepage": "https://github.com/countnazgul/qlik-script-parser#readme",
   "dependencies": {
-    "pegjs": "git+https://github.com/pouc/pegjs.git",
+    "pegjs": "^0.10.0",
     "pegjs-backtrace": "^0.2.0"
   }
 }

@@ -58,43 +58,43 @@ blocks
 // - SWITCH 
   
 block
-	= pf:rowPrefix? txt:($ spaces?) & spEndofrow
+	= txt:($ spaces?) & spEndofrow
 	{
 		return {
 			blockType: 'EMPTY',
-			datetime: pf ? pf.datetime : false,
-			rowNumber: pf ? pf.rowNumber : false,
+			datetime: '',
+			rowNumber: '',
 			txt: () => computeText(arguments)
 		};
 	}
 	
-	/ /*pf:rowPrefix6Spaces*/ comment:scriptCommentBlock & spEndofrow
+	/ comment:scriptCommentBlock & spEndofrow
 	{
 		return {
 			blockType: 'COMMENT',
-			//datetime: pf.datetime,
+			datetime: '',
 			block: comment,
 			txt: () => computeText(arguments)
 		};
 	}
 	
-	/ pf:rowPrefix connectBlock:connectBlock & spEndofrow
+	/ connectBlock:connectBlock & spEndofrow
 	{
 		return {
 			blockType: 'CONNECT',
-			datetime: pf.datetime,
-			rowNumber: pf.rowNumber,
+			datetime: '',
+			rowNumber: '',
 			block: connectBlock,
 			txt: () => computeText(arguments)
 		};
 	}
 	
-	/ pf:rowPrefix hiddenBlock:hiddenBlock & spEndofrow
+	/ hiddenBlock:hiddenBlock & spEndofrow
 	{
 		return {
 			blockType: 'HIDDEN',
-			datetime: pf.datetime,
-			rowNumber: pf.rowNumber,
+			datetime: '',
+			rowNumber: '',
 			block: hiddenBlock,
 			txt: () => computeText(arguments)
 		};
@@ -104,24 +104,24 @@ block
 	{
 		return {
 			blockType: 'TRACE',
-			datetime: traceBlock.pf.datetime,
-			rowNumber: traceBlock.pf.rowNumber,
+			datetime:'',
+			rowNumber: '',
 			block: traceBlock.trace,
 			txt: () => computeText(arguments)
 		};
 	}
 	
-	/ pf:rowPrefix block:whenBlock & spEndofrow
+	/ block:whenBlock & spEndofrow
 	{
 		return block;
 	}
 	
-	/ pf:rowPrefix block:blockContent & spEndofrow
+	/ block:blockContent & spEndofrow
 	{
 		return {
 			blockType: block.type,
-			datetime: pf.datetime,
-			rowNumber: pf.rowNumber,
+			datetime: '',
+			rowNumber: '',
 			block: block.block,
 			txt: () => computeText(arguments)
 		};
@@ -333,25 +333,16 @@ scriptCommentBlock  =
 
 singleLineCommentBlock = sep? '//' p:([^\n]*) { return { type: 'SINGLE LINE', comment: p.join(''), txt: () => computeText(arguments) }}
 multiLineCommentBlock  = "/*" inner:(!"*/" i:. {return i})* "*/" { return { type: 'MULTI LINE', comment: inner.join(''), txt: () => computeText(arguments) }}
-remCommentBlock        = spaces? 'REM'i a:anyString* spaces? ';' { return { type: 'REM', comment: a.join(''), txt: () => computeText(arguments) }}
+remCommentBlock        = spaces? 'REM'i a:anyString* blockEndSameLine { return { type: 'REM', comment: a.join(''), txt: () => computeText(arguments) }}
 
 // LET/SET block
-letSetBlock = letset:('LET'i sep / 'SET'i sep)? sep1:sep? name:variableName sep3:sep* eq:'='  sep2:sep* value:letSetBlockValue sep4:sep* ';'
+letSetBlock = letset:('LET'i sep / 'SET'i sep)? sep1:sep? name:variableName sep3:sep* eq:'='  sep2:sep* value:letSetBlockValue sep* ';'
 	{ return {
 		type: letset ? letset[0] : 'LET',
 		name: name,
 		value: value.val,
 		txt: () => computeText(arguments)
 	}}
-// letSetBlock			= 
-// 	letset:('LET'i sep / 'SET'i sep)? sep1:sep? name:variableName sep2:sep? eq:'='
-// 	value:letSetBlockValue
-// 	{ return {
-// 		type: letset ? letset[0] : 'LET',
-// 		name: name,
-// 		value: value.val,
-// 		txt: () => computeText(arguments)
-// 	}}
 	
 letSetBlockValue
 	= & (sep? variableValue  sep? ';' spEndofrow ( EOF / block )) sep3:sep? val:variableValue	{ return { val: val, txt: () => computeText(arguments) } }
@@ -1016,145 +1007,42 @@ loadBlockOrderByFields
 loadBlockOrderByField
 	= $ resource (sep ('ASC'i / 'DESC'i))?
 	
-
-// SUMMARY
-	
-loadBlockSum		= ''
-	// rowPrefix6Spaces sum1:loadBlockSummaryError
-	// {
-	// 	return {
-	// 		error: sum1.error,
-	// 		sum: [{
-	// 			sum1: sum1.sum,
-	// 			sum2: false
-	// 		}],
-	// 		txt: () => computeText(arguments)
-	// 	}
-	// }
-	
-	// /
-	
-	// rowPrefix6Spaces sum11:(loadBlockSummary1) nl1:newline
-	// rowPrefix6Spaces sum12:(loadBlockSummary2) nl2:newline
-	// rowPrefix6Spaces sum21:(loadBlockSummary1) nl3:newline
-	// rowPrefix6Spaces sum22:(loadBlockSummary2)
-	// {
-	// 	return {
-	// 		error: false,
-	// 		sum: [{
-	// 			sum1: sum11.sum,
-	// 			sum2: sum12.sum
-	// 		}, {
-	// 			sum1: sum21.sum,
-	// 			sum2: sum22.sum
-	// 		}],
-	// 		txt: () => computeText(arguments)
-	// 	}
-	// }
-	
-	// /
-	
-	// rowPrefix6Spaces sum1:(loadBlockSummary1) nl:newline
-	// rowPrefix6Spaces sum2:(loadBlockSummaryError)
-	// {
-	// 	return {
-	// 		error: sum2.error,
-	// 		sum: [{
-	// 			sum1: sum1.sum,
-	// 			sum2: sum2.sum
-	// 		}],
-	// 		txt: () => computeText(arguments)
-	// 	}
-	// }
-	
-	// /
-	
-	// rowPrefix6Spaces sum1:(loadBlockSummary1) nl:newline
-	// rowPrefix6Spaces sum2:(loadBlockSummary2)
-	// {
-	// 	return {
-	// 		error: sum2.error,
-	// 		sum: [{
-	// 			sum1: sum1.sum,
-	// 			sum2: sum2.sum
-	// 		}],
-	// 		txt: () => computeText(arguments)
-	// 	}
-	// }
-	
-	
-
-loadBlockSummaryError			= ''
-	// 'Error:' spaces? msg:endofrow
-	// {
-	// 	return {
-	// 		error: true,
-	// 		sum: msg,
-	// 		txt: () => computeText(arguments)
-	// 	};
-	// }
-	
-loadBlockSummary1				= ''
-	// sp1:' '* tb1:'\t' noffields:[0-9]+ sp2:spaces? ff:'fields found: ' list:[^\r\n]+
-	// {
-	// 	var fieldList = list.join("")
-	// 		.split(',')
-	// 		.map(field => field.trim())
-	// 		.filter(field => field.length > 0);
-		
-	// 	return {
-	// 		error: false,
-	// 		sum: (fieldList.length == parseInt(noffields.join(''))) ? fieldList : false,
-	// 		txt: () => computeText(arguments)
-	// 	};
-	// }
-	
-loadBlockSummary2				= ''
-	// sp1:' '* nofrows:([0-9] / '\xa0' / '.' / ',')+ sp2:spaces? lf:'lines fetched'
-	// {
-	// 	return {
-	// 		error: false,
-	// 		sum: parseInt(nofrows.filter(d => !isNaN(d)).join("")),
-	// 		txt: () => computeText(arguments)
-	// 	};
-	// }
-
-	
 // TRACE block. Single & multiple rows are handled
 
-traceBlock						=
-	pf1:rowPrefix t:'TRACE'i s1:spaces trace1:endofrow newline
+// TODO - // Why is this so complex???????? 
+traceBlock						= ''
+	// pf1:rowPrefix t:'TRACE'i s1:spaces trace1:endofrow newline
 		
-	pf2:rowPrefix spaces? endofrow & { return pf2.rowNumber == pf1.rowNumber; }
+	// pf2:rowPrefix spaces? endofrow & { return pf2.rowNumber == pf1.rowNumber; }
 
-	{
-		return { pf: pf1, trace: trace1, txt: () => t + s1 + trace1 };
-	}
+	// {
+	// 	return { pf: pf1, trace: trace1, txt: () => t + s1 + trace1 };
+	// }
 	
-	/
+	// /
 	
-	pf1:rowPrefix t:'TRACE'i s1:spaces trace1:endofrow newline
+	// pf1:rowPrefix t:'TRACE'i s1:spaces trace1:endofrow newline
 	
-	tracen:(
+	// tracen:(
 	
-		pfn:rowPrefix spaces? tracen:endofrow newline & { return pfn.rowNumber > pf1.rowNumber; }
+	// 	pfn:rowPrefix spaces? tracen:endofrow newline & { return pfn.rowNumber > pf1.rowNumber; }
 		
-		& (pfm:rowPrefix spaces? endofrow newline & { return pfm.rowNumber > pf1.rowNumber; })
+	// 	& (pfm:rowPrefix spaces? endofrow newline & { return pfm.rowNumber > pf1.rowNumber; })
 		
-		{ return tracen; }
+	// 	{ return tracen; }
 		
-	)*
+	// )*
 	
-	pfm:rowPrefix spaces? tracem:endofrow newline & { return pfm.rowNumber > pf1.rowNumber; }
+	// pfm:rowPrefix spaces? tracem:endofrow newline & { return pfm.rowNumber > pf1.rowNumber; }
 		
-	pf2:rowPrefix spaces? endofrow & { return pf2.rowNumber == pf1.rowNumber; }
+	// pf2:rowPrefix spaces? endofrow & { return pf2.rowNumber == pf1.rowNumber; }
 	
-	(newline pfn:rowPrefix spaces? endofrow  & { return pfn.rowNumber <= pfm.rowNumber; })+
+	// (newline pfn:rowPrefix spaces? endofrow  & { return pfn.rowNumber <= pfm.rowNumber; })+
 
-	{
-		var msg = [ trace1 ].concat(tracen).concat(tracem).join('\r\n');
-		return {pf: pf1, trace: msg, txt: () => t + s1 + msg };
-	}
+	// {
+	// 	var msg = [ trace1 ].concat(tracen).concat(tracem).join('\r\n');
+	// 	return {pf: pf1, trace: msg, txt: () => t + s1 + msg };
+	// }
 
 // DROP block
 
@@ -1575,8 +1463,13 @@ functionParameters
 /*
  * Misc.
  */
+
+blockEnd           = block:(sep? ';' sep?) { return block } // generic block end ;
+blockEndSameLine   = block:(spaces? ';') { return block } // the ; should be on the same line. For example: rem comment;
+
+// TODO - need validation
 sep
-	= chars:(sp1:spaces? nl:newline /*spaces? pf:rowPrefix*/ sp2:spaces? { return (sp1 ? sp1 : '') + nl /*+ (pf.sp ? pf.sp : '')*/ + (sp2 ? sp2 : ''); } )+
+	= chars:(sp1:spaces? nl:newline sp2:spaces? { return (sp1 ? sp1 : '') + nl + (sp2 ? sp2 : ''); } )+
 		{ return chars.join(''); }
 	/ chars:spaces
 		{ return chars; }
@@ -1602,12 +1495,6 @@ resource			= name:(
 variableName		= name:alphanum
 variableValue 		= expression
 
-rowPrefix			= sp:spaces?					{ return { sp: (sp ? sp : false), txt: () => '' }; }
-// rowPrefix			= pf:rowPrefixWoRn space scriptRowNumber:scriptRowNumber space sp:spaces?					{ return { datetime: pf.datetime, rowNumber: parseInt(scriptRowNumber), sp: (sp ? sp : false), txt: () => '' }; }
-rowPrefix6Spaces	= '' //pf:rowPrefixWoRn sixSpaces																{ return { datetime: pf.datetime }; }
-
-// rowPrefixWoRn		= spaces? datetime:datetime																	{ return { datetime: datetime}; }	
-	
 /*
  * Date & Time
  */
@@ -1616,8 +1503,6 @@ datetime			= date:date spaces time:time { return {date: date, time: time}; }
 date				= date:(digit digit digit digit '-' digit digit '-' digit digit) { return date.join(''); }
 time				= time:(digit digit ':' digit digit ':' digit digit) { return time.join(''); }
 	
-// scriptRowNumber		= scriptRowNumber:(digit digit digit digit) { return scriptRowNumber.join(''); }
-
 /*
  * Spaces
  */
@@ -1648,7 +1533,6 @@ alphanum			= chars:[a-zA-Z0-9\xC0-\xFF_\.%\?#°º$§]+	{ return chars.join(''); 
 endofrow			= chars:[^\r\n]*							{ return chars.join(''); }
 spEndofrow			= spaces? ( newline / EOF )
 EOF					= !.
-blockEnd            = ';'
 
 strings
 	= head:string tail:(sep? ',' sep? string)*
