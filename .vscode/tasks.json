@@ -1,0 +1,21 @@
+{
+  "version": "2.0.0",
+  "tasks": [
+    {
+      "type": "npm",
+      "script": "build",
+      "group": "build",
+      "problemMatcher": [],
+      "label": "npm: build",
+      "detail": "Build dist/qlik-script-parser.js"
+    },
+    {
+      "label": "generate documentation",
+      "type": "shell",
+      "options": { "cwd": "./docs" },
+      "command": "grammkit ..\\src\\qlik-grammar.pegjs",
+      "problemMatcher": [],
+      "detail": "Generate html page"
+    }
+  ]
+}

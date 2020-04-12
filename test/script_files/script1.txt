@@ -1,0 +1,27 @@
+SET ThousandSep=',';
+SET DecimalSep='.';
+
+Drop tables test;
+
+// Resident load with conditions
+
+rem Test rem comment;
+
+/*
+Multi
+    Line
+        Comment
+            Example
+
+*/
+
+ttt:
+LOAD
+    MyField   as [test aaaaa],
+    Name      as test123,
+    sum(Area) as AggrExample
+RESIDENT MyTable
+where 
+1 = 1
+and 2 = 2
+;
