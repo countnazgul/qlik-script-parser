@@ -1,10 +1,11 @@
 {
   "name": "qlik-script-parser",
-  "version": "0.0.4",
+  "version": "0.0.5",
   "description": "PEG.js parser for Qlik Scripts",
   "main": "index.js",
   "scripts": {
-    "build": "pegjs -o .\\dist\\qlik-script-parser.js .\\src\\qlik-grammar.pegjs"
+    "build": "cd src&&node build.js",
+    "build-temp": "pegjs -o .\\dist\\qlik-script-parser.js .\\src\\qlik-grammar.pegjs"
   },
   "repository": {
     "type": "git",

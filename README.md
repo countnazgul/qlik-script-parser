@@ -2,7 +2,7 @@
 
 # PEG.js parser for Qlik script
 
-**WIP**. Most likely will be in this state for a long time
+**WIP**. Most likely will be in this state for a long time. Contributions are more than welcome!
 
 The idea behind this is to create JS parser that can parse Qlik script files/strings and produce a list of the script elements, using [PEG.js](https://pegjs.org/)
 
@@ -18,10 +18,31 @@ The produced parser can be used as a base for building additional tools. Like:
 - fix few issues that have spotted
 - extend the script to include all the functionality (some are marked as TODO in the original script)
 
-**Future:**
+**Future**
 
 Once the script parser is complete the next step is to create similar parser but for Qlik expressions (only thinking about describing the set analysis is giving me a headache)
 
 I do have a set of scripts to test with but feel free to submit/mail extra scripts.
 
 PS. Have a look at the `docs/index.html` at the "beauty" of the rules
+
+**Build**
+
+To build the parser yourself:
+
+- clone this repo
+- `npm install`
+- `npm run build` - this will combine `src/blocks/*.pegjs` files (using the order specified in `src/build.js`) and will produce both the grammar file and the parser file in the `dist` folder
+
+**Usage**
+
+(no `npm` installation yet)
+
+```javascript
+const parser = require('../dist/qlik-script-parser')
+const qlikScript = `SET ThousandSep=',';
+SET DecimalSep='.';
+Let MyMessage = NoOfRows('MainTable') & ' rows in Main Table';`
+
+let parsedText = parser.parse(qlikScript)
+```
