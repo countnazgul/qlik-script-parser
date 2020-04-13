@@ -99,7 +99,7 @@ block
 	{
 		return {
 			blockType: 'TRACE',
-			block: traceBlock.trace,
+			block: traceBlock,
 			txt: () => computeText(arguments)
 		};
 	}
@@ -999,41 +999,13 @@ loadBlockOrderByField
 	= $ resource (sep ('ASC'i / 'DESC'i))?
 	
 // TRACE block. Single & multiple rows are handled
-
-// TODO - // Why is this so complex???????? 
-traceBlock						= ''
-	// pf1:rowPrefix t:'TRACE'i s1:spaces trace1:endofrow newline
-		
-	// pf2:rowPrefix spaces? endofrow & { return pf2.rowNumber == pf1.rowNumber; }
-
-	// {
-	// 	return { pf: pf1, trace: trace1, txt: () => t + s1 + trace1 };
-	// }
-	
-	// /
-	
-	// pf1:rowPrefix t:'TRACE'i s1:spaces trace1:endofrow newline
-	
-	// tracen:(
-	
-	// 	pfn:rowPrefix spaces? tracen:endofrow newline & { return pfn.rowNumber > pf1.rowNumber; }
-		
-	// 	& (pfm:rowPrefix spaces? endofrow newline & { return pfm.rowNumber > pf1.rowNumber; })
-		
-	// 	{ return tracen; }
-		
-	// )*
-	
-	// pfm:rowPrefix spaces? tracem:endofrow newline & { return pfm.rowNumber > pf1.rowNumber; }
-		
-	// pf2:rowPrefix spaces? endofrow & { return pf2.rowNumber == pf1.rowNumber; }
-	
-	// (newline pfn:rowPrefix spaces? endofrow  & { return pfn.rowNumber <= pfm.rowNumber; })+
-
-	// {
-	// 	var msg = [ trace1 ].concat(tracen).concat(tracem).join('\r\n');
-	// 	return {pf: pf1, trace: msg, txt: () => t + s1 + msg };
-	// }
+traceBlock = "TRACE"i (spaces / newline) inner:(!";" i:. {return i})*  ';'
+				{ 
+					return { 
+						trace: inner.join(''), 
+						txt: () => computeText(arguments) 
+					}
+				}
 
 // DROP block
 
