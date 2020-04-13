@@ -1,8 +1,6 @@
 SET ThousandSep=',';
 SET DecimalSep='.';
 
-Drop tables test;
-
 // Resident load with conditions
 
 rem Test rem comment;
@@ -15,13 +13,16 @@ Multi
 
 */
 
-ttt:
+[My table]:
 LOAD
-    MyField   as [test aaaaa],
-    Name      as test123,
-    sum(Area) as AggrExample
-RESIDENT MyTable
-where 
-1 = 1
-and 2 = 2
+    MyField   as [My Field],
+    Name,
+    sum(Area) as AggrField
+RESIDENT 
+    MyTable
+Where 
+        1 = 1
+    and 2 = 2
 ;
+
+Drop table [My table];

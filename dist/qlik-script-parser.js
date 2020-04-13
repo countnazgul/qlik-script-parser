@@ -155,15 +155,12 @@ function peg$parse(input, options) {
       peg$c3 = function(txt) {
       		return {
       			blockType: 'EMPTY',
-      			datetime: '',
-      			rowNumber: '',
       			txt: () => computeText(arguments)
       		};
       	},
       peg$c4 = function(comment) {
       		return {
       			blockType: 'COMMENT',
-      			datetime: '',
       			block: comment,
       			txt: () => computeText(arguments)
       		};
@@ -171,8 +168,6 @@ function peg$parse(input, options) {
       peg$c5 = function(connectBlock) {
       		return {
       			blockType: 'CONNECT',
-      			datetime: '',
-      			rowNumber: '',
       			block: connectBlock,
       			txt: () => computeText(arguments)
       		};
@@ -180,8 +175,6 @@ function peg$parse(input, options) {
       peg$c6 = function(hiddenBlock) {
       		return {
       			blockType: 'HIDDEN',
-      			datetime: '',
-      			rowNumber: '',
       			block: hiddenBlock,
       			txt: () => computeText(arguments)
       		};
@@ -189,8 +182,6 @@ function peg$parse(input, options) {
       peg$c7 = function(traceBlock) {
       		return {
       			blockType: 'TRACE',
-      			datetime:'',
-      			rowNumber: '',
       			block: traceBlock.trace,
       			txt: () => computeText(arguments)
       		};
@@ -201,8 +192,6 @@ function peg$parse(input, options) {
       peg$c9 = function(block) {
       		return {
       			blockType: block.type,
-      			datetime: '',
-      			rowNumber: '',
       			block: block.block,
       			txt: () => computeText(arguments)
       		};
