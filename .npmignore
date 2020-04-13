@@ -1,0 +1,9 @@
+node_modules
+docs
+src
+test
+tree-viz
+.vscode
+.gitignore
+.git
+dist/qlik-grammar.pegjs
