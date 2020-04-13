@@ -17,6 +17,7 @@ The produced parser can be used as a base for building additional tools. Like:
 - change Loïc's script to "fit" the script files syntax (and not only the script logs)
 - fix few issues that have spotted
 - extend the script to include all the functionality (some are marked as TODO in the original script)
+- unify/change the returned tree properties
 
 **Future**
 
