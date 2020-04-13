@@ -1,3 +1,5 @@
+// Base script used from https://github.com/pouc/qlik-script-log-parser
+
 {
 	function isFunction(functionToCheck) {
 		var getType = {};
@@ -62,8 +64,6 @@ block
 	{
 		return {
 			blockType: 'EMPTY',
-			datetime: '',
-			rowNumber: '',
 			txt: () => computeText(arguments)
 		};
 	}
@@ -72,7 +72,6 @@ block
 	{
 		return {
 			blockType: 'COMMENT',
-			datetime: '',
 			block: comment,
 			txt: () => computeText(arguments)
 		};
@@ -82,8 +81,6 @@ block
 	{
 		return {
 			blockType: 'CONNECT',
-			datetime: '',
-			rowNumber: '',
 			block: connectBlock,
 			txt: () => computeText(arguments)
 		};
@@ -93,8 +90,6 @@ block
 	{
 		return {
 			blockType: 'HIDDEN',
-			datetime: '',
-			rowNumber: '',
 			block: hiddenBlock,
 			txt: () => computeText(arguments)
 		};
@@ -104,8 +99,6 @@ block
 	{
 		return {
 			blockType: 'TRACE',
-			datetime:'',
-			rowNumber: '',
 			block: traceBlock.trace,
 			txt: () => computeText(arguments)
 		};
@@ -120,8 +113,6 @@ block
 	{
 		return {
 			blockType: block.type,
-			datetime: '',
-			rowNumber: '',
 			block: block.block,
 			txt: () => computeText(arguments)
 		};

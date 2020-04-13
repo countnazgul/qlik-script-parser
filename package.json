@@ -1,6 +1,6 @@
 {
   "name": "qlik-script-parser",
-  "version": "0.0.2",
+  "version": "0.0.3",
   "description": "PEG.js parser for Qlik Scripts",
   "main": "index.js",
   "scripts": {
