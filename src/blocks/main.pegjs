@@ -67,6 +67,15 @@ block
 			txt: () => computeText(arguments)
 		};
 	}
+
+	/ tab:tabBlock & spEndofrow
+	{
+		return {
+			blockType: 'TAB',
+			block: tab,
+			txt: () => computeText(arguments)
+		};
+	}	
 	
 	/ comment:scriptCommentBlock & spEndofrow
 	{

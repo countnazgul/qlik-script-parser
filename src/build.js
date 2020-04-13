@@ -2,7 +2,7 @@ const fs = require('fs')
 const peg = require('pegjs')
 
 let fullGrammar = ''
-ASas
+
 // List all grammar files. They will be read in the input order
 let blocksOrder = [
   'main',
@@ -16,6 +16,7 @@ let blocksOrder = [
   'sub-call',
   'search',
   'tag',
+  'tab',
   'comment',
   'let-set',
   'if',

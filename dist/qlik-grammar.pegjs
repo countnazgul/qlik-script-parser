@@ -68,6 +68,15 @@ block
 			txt: () => computeText(arguments)
 		};
 	}
+
+	/ tab:tabBlock & spEndofrow
+	{
+		return {
+			blockType: 'TAB',
+			block: tab,
+			txt: () => computeText(arguments)
+		};
+	}	
 	
 	/ comment:scriptCommentBlock & spEndofrow
 	{
@@ -340,6 +349,11 @@ tagBlock
 	{ return { mode: 'MAP', resources: res, map: map, txt: () => computeText(arguments) } }
 
 
+// TAB - ///$tab Main\r\n
+
+tabBlock
+	= '///$tab' sp:sep? res:resources
+      { return { name: res, txt: () => computeText(arguments) } }
 // COMMENT
 
 commentBlock
