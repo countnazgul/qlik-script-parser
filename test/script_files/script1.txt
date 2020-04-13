@@ -1,6 +1,15 @@
 SET ThousandSep=',';
 SET DecimalSep='.';
 
+Let MyMessage = NoOfRows('MainTable') & ' rows in Main Table';
+Trace $(MyMessage);
+Trace My
+    other
+message
+;
+
+
+
 // Resident load with conditions
 
 rem Test rem comment;
