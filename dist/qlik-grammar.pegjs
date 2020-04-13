@@ -352,8 +352,8 @@ tagBlock
 // TAB - ///$tab Main\r\n
 
 tabBlock
-	= '///$tab' sp:sep? res:resources
-      { return { name: res, txt: () => computeText(arguments) } }
+	= '///$tab' sep t:(sp:sep? char:anyString {return char})+
+      { return { name: t.join(''), txt: () => computeText(arguments) } }
 // COMMENT
 
 commentBlock

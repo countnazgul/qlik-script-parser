@@ -1,3 +1,7 @@
+## 0.0.6 - 2020-04-13
+
+- `tab` block added - `///$ TabName`
+
 ## 0.0.5 - 2020-04-13
 
 - grammar file is split into multiple grammar/block files. Build script is made to produce the complete grammar and the parser files. Checkout `src/build.js`
