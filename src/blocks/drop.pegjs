@@ -5,13 +5,18 @@ dropBlock
 	{
 		return {
 			type: type,
-			drop: resources,
+			data: resources,
 			// from: from ? from.res : false,
-			txt: () => computeText(arguments)
+			// txt: () => computeText(arguments)
 		}
 	}
 	
 dropBlockFrom
 	= s3:sep f:'FROM'i s4:sep res:resources
-	{ return { res: res, txt: () => computeText(arguments) }}
+	{ 
+		return { 
+			res: res, 
+			txt: () => computeText(arguments) 
+		}
+	}
 

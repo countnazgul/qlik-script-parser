@@ -1,5 +1,8 @@
+///$tab Main
+
 SET ThousandSep=',';
 SET DecimalSep='.';
+SET custom = sum(test) + count(test1) + min(test2);
 
 Let MyMessage = NoOfRows('MainTable') & ' rows in Main Table';
 Trace $(MyMessage);
@@ -36,3 +39,8 @@ Where
 ;
 
 Drop table [My table];
+Drop tables [My table], MyOtherTable;
+Drop Field Field1;
+Drop Fields Field1, Field2;
+Drop Field Field1 from Table1;
+Drop Fields Field1, Field2 from Table1;

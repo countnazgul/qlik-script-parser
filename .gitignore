@@ -1,4 +1,5 @@
-﻿qlik-script-parser-original.js
+﻿playground.js
+qlik-script-parser-original.js
 grammar.pegjs
 tree.json
 t.js

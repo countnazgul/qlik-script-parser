@@ -38,7 +38,7 @@ blocks
 				if(element[1] !== null) return result.concat([element[1]]);
 				else return result;
 			}, [ head ]),
-			txt: () => computeText(arguments)
+			// txt: () => computeText(arguments)
 		}
 	}
    
@@ -63,10 +63,7 @@ blocks
 block
 	= txt:($ spaces?) & spEndofrow
 	{
-		return {
-			blockType: 'EMPTY',
-			txt: () => computeText(arguments)
-		};
+		return null
 	}
 
 	/ tab:tabBlock & spEndofrow
@@ -74,7 +71,7 @@ block
 		return {
 			blockType: 'TAB',
 			block: tab,
-			txt: () => computeText(arguments)
+			// txt: () => computeText(arguments)
 		};
 	}	
 	
@@ -83,7 +80,7 @@ block
 		return {
 			blockType: 'COMMENT',
 			block: comment,
-			txt: () => computeText(arguments)
+			// txt: () => computeText(arguments)
 		};
 	}
 	
@@ -92,7 +89,7 @@ block
 		return {
 			blockType: 'CONNECT',
 			block: connectBlock,
-			txt: () => computeText(arguments)
+			// txt: () => computeText(arguments)
 		};
 	}
 	
@@ -101,7 +98,7 @@ block
 		return {
 			blockType: 'HIDDEN',
 			block: hiddenBlock,
-			txt: () => computeText(arguments)
+			// txt: () => computeText(arguments)
 		};
 	}
 	
@@ -110,7 +107,7 @@ block
 		return {
 			blockType: 'TRACE',
 			block: traceBlock,
-			txt: () => computeText(arguments)
+			// txt: () => computeText(arguments)
 		};
 	}
 	
@@ -124,7 +121,7 @@ block
 		return {
 			blockType: block.type,
 			block: block.block,
-			txt: () => computeText(arguments)
+			// txt: () => computeText(arguments)
 		};
 	}
 	
@@ -133,7 +130,7 @@ block
 		return {
 			blockType: 'UNKNOWN',
 			unknown: unknownBlock,
-			txt: () => computeText(arguments)
+			// txt: () => computeText(arguments)
 		};
 	}
 	
@@ -144,7 +141,7 @@ blockContent		=
 	/	block:elseBlock			{ return { type: 'ELSE',		block: block, txt: () => computeText(arguments) }; }
 	/	block:endBlock			{ return { type: 'END',			block: block, txt: () => computeText(arguments) }; }
 	/	block:loadBlock			{ return { type: 'LOAD',		block: block, txt: () => computeText(arguments) }; }
-	/	block:dropBlock			{ return { type: 'DROP',		block: block, txt: () => computeText(arguments) }; }
+	/	block:dropBlock			{ return { type: 'DROP',		block: block, /*txt: () => computeText(arguments)*/ }; }
 	/	block:renameBlock		{ return { type: 'RENAME',		block: block, txt: () => computeText(arguments) }; }
 	/	block:doBlock			{ return { type: 'DO',			block: block, txt: () => computeText(arguments) }; }
 	/	block:loopUntilBlock	{ return { type: 'LOOP UNTIL',	block: block, txt: () => computeText(arguments) }; }
@@ -352,8 +349,14 @@ tagBlock
 // TAB - ///$tab Main\r\n
 
 tabBlock
-	= '///$tab' sep t:(sp:sep? char:anyString {return char})+
-      { return { name: t.join(''), txt: () => computeText(arguments) } }
+	= '///$tab ' t:(char:anyString { return char })+
+       { 
+            return { 
+              name: t.join(''), 
+              location:location(), 
+              txt: () => computeText(arguments) 
+            } 
+        }
 // COMMENT
 
 commentBlock
@@ -1066,15 +1069,20 @@ dropBlock
 	{
 		return {
 			type: type,
-			drop: resources,
+			data: resources,
 			// from: from ? from.res : false,
-			txt: () => computeText(arguments)
+			// txt: () => computeText(arguments)
 		}
 	}
 	
 dropBlockFrom
 	= s3:sep f:'FROM'i s4:sep res:resources
-	{ return { res: res, txt: () => computeText(arguments) }}
+	{ 
+		return { 
+			res: res, 
+			txt: () => computeText(arguments) 
+		}
+	}
 
 
 // RENAME block

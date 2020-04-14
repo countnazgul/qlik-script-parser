@@ -5,7 +5,8 @@
   "main": "./dist/qlik-script-parser.js",
   "scripts": {
     "build": "cd src&&node build.js",
-    "build-temp": "pegjs -o .\\dist\\qlik-script-parser.js .\\src\\qlik-grammar.pegjs"
+    "build-temp": "pegjs -o .\\dist\\qlik-script-parser.js .\\src\\qlik-grammar.pegjs",
+    "test": "jest"
   },
   "keywords": [
     "qlik",
@@ -27,5 +28,11 @@
   "dependencies": {
     "pegjs": "^0.10.0",
     "pegjs-backtrace": "^0.2.0"
+  },
+  "devDependencies": {
+    "jest": "^25.3.0"
+  },
+  "jest": {
+    "testEnvironment": "node"
   }
 }

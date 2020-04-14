@@ -37,7 +37,7 @@ blocks
 				if(element[1] !== null) return result.concat([element[1]]);
 				else return result;
 			}, [ head ]),
-			txt: () => computeText(arguments)
+			// txt: () => computeText(arguments)
 		}
 	}
    
@@ -60,20 +60,20 @@ blocks
 // - SWITCH 
   
 block
-	= txt:($ spaces?) & spEndofrow
-	{
-		return {
-			blockType: 'EMPTY',
-			txt: () => computeText(arguments)
-		};
-	}
+	// = txt:($ spaces?) & spEndofrow
+	// {
+	// 	return {
+	// 		blockType: 'EMPTY',
+	// 		txt: () => computeText(arguments)
+	// 	};
+	// }
 
-	/ tab:tabBlock & spEndofrow
+	= tab:tabBlock & spEndofrow
 	{
 		return {
 			blockType: 'TAB',
 			block: tab,
-			txt: () => computeText(arguments)
+			// txt: () => computeText(arguments)
 		};
 	}	
 	
@@ -82,7 +82,7 @@ block
 		return {
 			blockType: 'COMMENT',
 			block: comment,
-			txt: () => computeText(arguments)
+			// txt: () => computeText(arguments)
 		};
 	}
 	
@@ -91,7 +91,7 @@ block
 		return {
 			blockType: 'CONNECT',
 			block: connectBlock,
-			txt: () => computeText(arguments)
+			// txt: () => computeText(arguments)
 		};
 	}
 	
@@ -100,7 +100,7 @@ block
 		return {
 			blockType: 'HIDDEN',
 			block: hiddenBlock,
-			txt: () => computeText(arguments)
+			// txt: () => computeText(arguments)
 		};
 	}
 	
@@ -109,7 +109,7 @@ block
 		return {
 			blockType: 'TRACE',
 			block: traceBlock,
-			txt: () => computeText(arguments)
+			// txt: () => computeText(arguments)
 		};
 	}
 	
@@ -123,7 +123,7 @@ block
 		return {
 			blockType: block.type,
 			block: block.block,
-			txt: () => computeText(arguments)
+			// txt: () => computeText(arguments)
 		};
 	}
 	
@@ -132,7 +132,7 @@ block
 		return {
 			blockType: 'UNKNOWN',
 			unknown: unknownBlock,
-			txt: () => computeText(arguments)
+			// txt: () => computeText(arguments)
 		};
 	}
 	

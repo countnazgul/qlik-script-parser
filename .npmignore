@@ -7,3 +7,4 @@ tree-viz
 .gitignore
 .git
 dist/qlik-grammar.pegjs
+playground
