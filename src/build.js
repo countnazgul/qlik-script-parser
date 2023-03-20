@@ -1,66 +1,64 @@
-const fs = require('fs')
-const peg = require('pegjs')
-
-let fullGrammar = ''
+import { readFileSync, writeFileSync } from "fs";
+import peggy from "peggy";
 
 // List all grammar files. They will be read in the input order
-let blocksOrder = [
-  'main',
-  'unknown',
-  'when',
-  'hidden',
-  'connect',
-  'direct',
-  'qualify',
-  'section-star',
-  'sub-call',
-  'search',
-  'tag',
-  'tab',
-  'comment',
-  'let-set',
-  'if',
-  'load',
-  'load-prefixes',
-  'load-fields',
-  'load-source',
-  'load-suffixes',
-  'trace',
-  'drop',
-  'rename',
-  'do',
-  'loopUntil',
-  'exit',
-  'declare',
-  'derive',
-  'for',
-  'next',
-  'else',
-  'end',
-  'store',
-  'sleep',
-  'binary',
-  'expressions',
-  'functions',
-  'misc',
-  'base',
-]
+const blocksOrder = [
+  "main",
+  "unknown",
+  "when",
+  "hidden",
+  "connect",
+  "direct",
+  "qualify",
+  "section-star",
+  "sub-call",
+  "search",
+  "tag",
+  "tab",
+  "comment",
+  "let-set",
+  "if",
+  "load",
+  "load-prefixes",
+  "load-fields",
+  "load-source",
+  "load-suffixes",
+  "trace",
+  "drop",
+  "rename",
+  "do",
+  "loopUntil",
+  "exit",
+  "declare",
+  "derive",
+  "for",
+  "next",
+  "else",
+  "end",
+  "store",
+  "sleep",
+  "binary",
+  "expressions",
+  "functions",
+  "misc",
+  "base",
+];
 
-// Read all grammar files and append them to fullGrammar
-for (let b of blocksOrder) {
-  let block = fs.readFileSync(`./blocks/${b}.pegjs`)
-  fullGrammar += '\n\r' + block
-}
+const fullGrammar = blocksOrder
+  .map((b) => {
+    return readFileSync(`./blocks/${b}.peggy`);
+  })
+  .join("\n\r");
 
 // Once all files are read - write the complete grammar
-fs.writeFileSync('../dist/qlik-grammar.pegjs', fullGrammar)
+writeFileSync("../dist/qlik-grammar.peggy", fullGrammar);
 
 // Parse the complete grammar
-let parser = peg.generate(fullGrammar, {
+const parser = peggy.generate(fullGrammar, {
   //   trace: true,
-  output: 'source',
-  format: 'commonjs',
-})
+  output: "source",
+  format: "es",
+});
 
 // Write the parser
-fs.writeFileSync('../dist/qlik-script-parser.js', parser)
+writeFileSync("../dist/qlik-script-parser.js", parser);

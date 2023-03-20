@@ -1,18 +1,19 @@
 {
   "name": "qlik-script-parser",
-  "version": "0.0.6",
+  "version": "0.1.0",
   "description": "Qlik script parser written in PEG.js",
   "main": "./dist/qlik-script-parser.js",
   "scripts": {
     "build": "cd src&&node build.js",
-    "build-temp": "pegjs -o .\\dist\\qlik-script-parser.js .\\src\\qlik-grammar.pegjs"
+    "build-temp": "peggy -o .\\dist\\qlik-script-parser.js .\\src\\qlik-grammar.peggy"
   },
+  "type": "module",
   "keywords": [
     "qlik",
     "sense",
     "script",
     "parse",
-    "pegjs"
+    "peggy"
   ],
   "repository": {
     "type": "git",
@@ -25,7 +26,6 @@
   },
   "homepage": "https://github.com/countnazgul/qlik-script-parser#readme",
   "dependencies": {
-    "pegjs": "^0.10.0",
-    "pegjs-backtrace": "^0.2.0"
+    "peggy": "^3.0.1"
   }
 }

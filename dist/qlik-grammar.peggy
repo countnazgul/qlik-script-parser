@@ -1,5 +1,4 @@
-
-// Base script used from https://github.com/pouc/qlik-script-log-parser
+// Base script used from https://github.com/pouc/qlik-script-log-parser
 
 {
 	function isFunction(functionToCheck) {
@@ -352,7 +351,7 @@ tagBlock
 // TAB - ///$tab Main\r\n
 
 tabBlock
-	= '///$tab' sep t:(sp:sep? char:anyString {return char})+
+	= '///$tab' sep t:(sp:sep? char:anyString { return char })+
       { return { name: t.join(''), txt: () => computeText(arguments) } }
 // COMMENT
 

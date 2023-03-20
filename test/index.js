@@ -1,9 +1,8 @@
-const fs = require('fs')
-const parser = require('../dist/qlik-script-parser')
+import { readFileSync } from "fs";
+import { parse } from "../dist/qlik-script-parser.js";
 
-let scriptFile = './script_files/script1.qvs'
-let script = fs.readFileSync(scriptFile).toString()
+const scriptFile = "./script_files/script1.qvs";
+const script = readFileSync(scriptFile).toString();
 
-let parsedText = parser.parse(script)
-// breakpoint next row
-let a = 1
+const parsedText = parse(script);
+let a = 1;

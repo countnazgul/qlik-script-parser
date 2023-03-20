@@ -1,3 +1,9 @@
+# Changelog
+
+## 0.1.0 - 2023-03-20
+
+- migrated to [Peggy](https://github.com/peggyjs/peggy). Peg.js is no longer maintained
+
 ## 0.0.6 - 2020-04-13
 
 - `tab` block added - `///$ TabName`
