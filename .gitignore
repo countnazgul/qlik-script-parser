@@ -1,4 +1,6 @@
-﻿qlik-script-parser-original.js
+﻿Notes.md
+launch.json
+qlik-script-parser-original.js
 grammar.pegjs
 tree.json
 t.js
@@ -34,3 +36,9 @@ benchmarks/graphs
 
 # log files
 test/log files/*.log
+
+.vscode/
+
+test/
+
+dist/

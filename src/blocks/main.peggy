@@ -5,13 +5,13 @@
 		var getType = {};
 		return functionToCheck && getType.toString.call(functionToCheck) === '[object Function]';
 	}
-	
+
 	function sortArgs(args) {
 		return Array.prototype.slice.call(args);
 	}
-	
+
 	function computeTextUnit(arrgs) {
-	
+
 		if (typeof arrgs === 'undefined') return '';
 		else if (Array.isArray(arrgs)) return arrgs.map(arg => computeTextUnit(arg)).join('');
 		else if (arrgs !== null && typeof arrgs === 'object' && arrgs.hasOwnProperty('txt') && isFunction(arrgs.txt)) return arrgs.txt();
@@ -40,7 +40,7 @@ blocks
 			txt: () => computeText(arguments)
 		}
 	}
-   
+
 // TODO
 // - ALIAS
 // - DIRECTORY
@@ -57,8 +57,8 @@ blocks
 // - SQLTYPES
 // - UNMAP
 // - UNTAG
-// - SWITCH 
-  
+// - SWITCH
+
 block
 	= txt:($ spaces?) & spEndofrow
 	{
@@ -75,8 +75,8 @@ block
 			block: tab,
 			txt: () => computeText(arguments)
 		};
-	}	
-	
+	}
+
 	/ comment:scriptCommentBlock & spEndofrow
 	{
 		return {
@@ -85,7 +85,7 @@ block
 			txt: () => computeText(arguments)
 		};
 	}
-	
+
 	/ connectBlock:connectBlock & spEndofrow
 	{
 		return {
@@ -94,7 +94,7 @@ block
 			txt: () => computeText(arguments)
 		};
 	}
-	
+
 	/ hiddenBlock:hiddenBlock & spEndofrow
 	{
 		return {
@@ -103,7 +103,7 @@ block
 			txt: () => computeText(arguments)
 		};
 	}
-	
+
 	/ traceBlock:traceBlock & spEndofrow
 	{
 		return {
@@ -112,12 +112,12 @@ block
 			txt: () => computeText(arguments)
 		};
 	}
-	
+
 	/ block:whenBlock & spEndofrow
 	{
 		return block;
 	}
-	
+
 	/ block:blockContent & spEndofrow
 	{
 		return {
@@ -126,7 +126,7 @@ block
 			txt: () => computeText(arguments)
 		};
 	}
-	
+
 	/ unknownBlock:unknownBlock & spEndofrow
 	{
 		return {
@@ -135,8 +135,8 @@ block
 			txt: () => computeText(arguments)
 		};
 	}
-	
-	
+
+
 blockContent		=
 	block:letSetBlock			{ return { type: 'LET SET',		block: block, txt: () => computeText(arguments) }; }
 	/	block:ifBlock			{ return { type: 'IF',			block: block, txt: () => computeText(arguments) }; }
@@ -164,30 +164,3 @@ blockContent		=
 	/	block:tagBlock			{ return { type: 'TAG',			block: block, txt: () => computeText(arguments) }; }
 	/	block:qualifyBlock		{ return { type: 'QUALIFY',		block: block, txt: () => computeText(arguments) }; }
 	/	block:directBlock		{ return { type: 'DIRECT',		block: block, txt: () => computeText(arguments) }; }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-	
-
-	
-
-	
-	
-
-
-
-
-
-
-

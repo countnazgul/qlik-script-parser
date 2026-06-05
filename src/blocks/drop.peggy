@@ -1,17 +1,26 @@
 // DROP block
 
-dropBlock
-	= d:'DROP'i s1:sep type:('FIELD'i / 'TABLE'i) s:('S'i)? s2:sep resources:resources ';'/*from:dropBlockFrom?*/
+dropBlock = dropFieldBlock / dropTableBlock
+
+dropFieldBlock "Drop field(s)"
+	= d:'DROP'i s1:sep type:('FIELD'i) s:('S'i)? s2:sep fields:resources s3:sep? f:(from:'FROM'i s4:sep fromTable:resources)? ';'
 	{
 		return {
 			type: type,
-			drop: resources,
+			fields: fields,
+            table: f ? f.fromTable : undefined,
 			// from: from ? from.res : false,
 			txt: () => computeText(arguments)
 		}
 	}
-	
-dropBlockFrom
-	= s3:sep f:'FROM'i s4:sep res:resources
-	{ return { res: res, txt: () => computeText(arguments) }}
 
+dropTableBlock "Drop table(s)"
+	= d:'DROP'i s1:sep type:('TABLE'i) s:('S'i)? s2:sep tables:resources s3:sep? ';'
+	{
+		return {
+			type: type,
+			tables: tables,
+			// from: from ? from.res : false,
+			txt: () => computeText(arguments)
+		}
+	}
