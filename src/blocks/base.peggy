@@ -35,6 +35,7 @@ anyString           = value:[a-zA-Z0-9.(): _-]+ { return value.join('') }
 alphaNum			= chars:[a-zA-Z0-9\xC0-\xFF_\.%\?#°º$§]+	{ return chars.join(''); }
 endOfRow			= chars:[^\r\n]*							{ return chars.join(''); }
 spEndOfRow			= spaces? ( newline / EOF )
+endOfStatement 		= sep? (spaces / newline / EOF)? ';'
 EOF					= !.
 
 strings
