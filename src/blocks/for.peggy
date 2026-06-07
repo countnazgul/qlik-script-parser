@@ -12,12 +12,12 @@ forBlock
 		};
 	}
 	/
-	'FOR'i spaces 'EACH'i spaces variable:resource spaces 'IN'i spaces inexp:forEachBlockIns
+	'FOR'i spaces 'EACH'i spaces variable:resource spaces 'IN'i spaces inExp:forEachBlockIns
 	{
 		return {
 			each: true,
 			variable: variable,
-			inexp: inexp
+			inExp: inExp
 		};
 	}
 	

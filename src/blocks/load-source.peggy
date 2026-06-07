@@ -43,10 +43,10 @@ loadBlockSourceInlineRows 	=
 		}
 	}
 	
-loadBlockSourceInlineHeader	= endofinlinerow
-loadBlockSourceInlineRow	= endofinlinerow
+loadBlockSourceInlineHeader	= endOfInlineRow
+loadBlockSourceInlineRow	= endOfInlineRow
 
-endofinlinerow				= chars:[^\]\r\n]*						{ return chars.join(""); }
+endOfInlineRow				= chars:[^\]\r\n]*						{ return chars.join(""); }
 
 loadBlockSourceSQL			=
 	s:('SQL'i & ( sep 'SELECT'i ) / & 'SELECT'i )  values:(endOfRow sep)* value:endOfRow

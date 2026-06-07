@@ -1,7 +1,7 @@
 // LET/SET block
-letSetBlock = letset:('LET'i sep / 'SET'i sep)? sep1:sep? name:variableName sep3:sep* eq:'='  sep2:sep* value:letSetBlockValue sep* ';'
+letSetBlock = letSet:('LET'i sep / 'SET'i sep)? sep1:sep? name:variableName sep3:sep* eq:'='  sep2:sep* value:letSetBlockValue sep* ';'
 	{ return {
-		type: letset ? letset[0] : 'LET',
+		type: letSet ? letSet[0] : 'LET',
 		name: name,
 		value: value.val,
 		txt: () => computeText(arguments)
