@@ -1,12 +1,12 @@
 // STAR IS
 
 starIsBlock
-	= $ 'STAR'i spaces 'IS'i spaces endofrow
+	= $ 'STAR'i spaces 'IS'i spaces endOfRow
 
 
 // SECTION
 
 sectionBlock
-	= $ 'SECTION'i spaces endofrow
+	= $ 'SECTION'i spaces endOfRow
 
 

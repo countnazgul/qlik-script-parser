@@ -8,9 +8,9 @@ letSetBlock = letset:('LET'i sep / 'SET'i sep)? sep1:sep? name:variableName sep3
 	}}
 	
 letSetBlockValue
-	= & (sep? variableValue  sep? ';' spEndofrow ( EOF / block )) sep3:sep? val:variableValue	{ return { val: val, txt: () => computeText(arguments) } }
-	/ val:spaces? & spEndofrow														{ return { val: val, txt: () => computeText(arguments) } }
+	= & (sep? variableValue  sep? ';' spEndOfRow ( EOF / block )) sep3:sep? val:variableValue	{ return { val: val, txt: () => computeText(arguments) } }
+	/ val:spaces? & spEndOfRow														{ return { val: val, txt: () => computeText(arguments) } }
 
 // letSetBlockValue
-// 	= & (sep? variableValue spEndofrow ( EOF / block )) sep3:sep? val:variableValue	{ return { val: val, txt: () => computeText(arguments) } }
-// 	/ val:spaces? & spEndofrow	
+// 	= & (sep? variableValue spEndOfRow ( EOF / block )) sep3:sep? val:variableValue	{ return { val: val, txt: () => computeText(arguments) } }
+// 	/ val:spaces? & spEndOfRow	

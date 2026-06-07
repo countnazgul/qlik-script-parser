@@ -1,7 +1,7 @@
 // COMMENT
 
 commentBlock
-	= commentBlock: scriptCommentBlock endofrow
+	= commentBlock: scriptCommentBlock endOfRow
 
 													{ return { val: val, txt: () => computeText(arguments) } }
 

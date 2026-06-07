@@ -1,3 +1,10 @@
 // BINARY block
 
-binaryBlock						= 'BINARY'i spaces bin:resource { return bin; }
+binaryBlock	"Binary"
+            = 'BINARY'i spaces bin:resource spaces? ';'
+            {
+                return {
+	                type: "BINARY",
+                    path: bin
+                }
+            }

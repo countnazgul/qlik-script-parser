@@ -1,7 +1,7 @@
 // CONNECT
 
 connectBlock
-	= con1:connectBlockSep* head:connectBlockItem con2:connectBlockSep* tail:(connectBlockItem connectBlockSep*)* & spEndofrow
+	= con1:connectBlockSep* head:connectBlockItem con2:connectBlockSep* tail:(connectBlockItem connectBlockSep*)* & spEndOfRow
 	{
 	
 		var retVal = [ head ].concat(tail.map(val => val[0])).reduce((result, val) => {

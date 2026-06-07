@@ -1,3 +1,3 @@
 // HIDDEN
 
-hiddenBlock			= $ (('*' / ' ' / ',')+ & spEndofrow)
+hiddenBlock			= $ (('*' / ' ' / ',')+ & spEndOfRow)

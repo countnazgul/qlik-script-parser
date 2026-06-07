@@ -32,9 +32,9 @@ digit				= [0-9]
  */
 
 anyString           = value:[a-zA-Z0-9.(): _-]+ { return value.join('') }
-alphanum			= chars:[a-zA-Z0-9\xC0-\xFF_\.%\?#°º$§]+	{ return chars.join(''); }
-endofrow			= chars:[^\r\n]*							{ return chars.join(''); }
-spEndofrow			= spaces? ( newline / EOF )
+alphaNum			= chars:[a-zA-Z0-9\xC0-\xFF_\.%\?#°º$§]+	{ return chars.join(''); }
+endOfRow			= chars:[^\r\n]*							{ return chars.join(''); }
+spEndOfRow			= spaces? ( newline / EOF )
 EOF					= !.
 
 strings
@@ -61,19 +61,19 @@ doubleQuoteStrings
     }
 	
 doubleQuoteString
-	= opq:doubleQuote chars:doubleQuotechar* cq:doubleQuote
+	= opq:doubleQuote chars:doubleQuoteChar* cq:doubleQuote
 	{
 		return { type: 'STR', value: chars.map(char => char.char).join(''), txt: () => computeText(arguments) };
 	}
 
-doubleQuotechar
+doubleQuoteChar
  	= char:doubleQuoteUeChar
 	{ return { char: char, txt: () => computeText(arguments) }}
 	
 	/ esc:doubleQuote sequence:(doubleQuote)
     { return { char: sequence, txt: () => computeText(arguments) }; }
 	
-    / sep:sep char:(doubleQuotechar / & doubleQuote)
+    / sep:sep char:(doubleQuoteChar / & doubleQuote)
     { return { char: sep + char, txt: () => computeText(arguments) }; }
     
 doubleQuote			= "\""
@@ -92,19 +92,19 @@ singleQuoteStrings
     }
 	
 singleQuoteString
-	= oq:singleQuote chars:singleQuotechar* cq:singleQuote
+	= oq:singleQuote chars:singleQuoteChar* cq:singleQuote
 	{
 		return { type: 'STR', value: chars.map(char => char.char).join(''), txt: () => computeText(arguments) };
 	}
 
-singleQuotechar
+singleQuoteChar
  	= char:singleQuoteUeChar
 	{ return { char: char, txt: () => computeText(arguments) }}
 	
 	/ esc:singleQuote sequence:(singleQuote)
     { return { char: sequence, txt: () => computeText(arguments) }; }
 	
-    / sep:sep char:(singleQuotechar / & singleQuote)
+    / sep:sep char:(singleQuoteChar / & singleQuote)
     { return { char: sep + char, txt: () => computeText(arguments) }; }
     
 singleQuote			= "'"
@@ -123,19 +123,19 @@ diagonalQuoteStrings
     }
 	
 diagonalQuoteString
-	= oq:diagonalQuote chars:diagonalQuotechar* cq:diagonalQuote
+	= oq:diagonalQuote chars:diagonalQuoteChar* cq:diagonalQuote
 	{
 		return { type: 'STR', value: chars.map(char => char.char).join(''), txt: () => computeText(arguments) };
 	}
 
-diagonalQuotechar
+diagonalQuoteChar
  	= char:diagonalQuoteUeChar
 	{ return { char: char, txt: () => computeText(arguments) }}
 	
 	/ esc:diagonalQuote sequence:(diagonalQuote)
     { return { char: sequence, txt: () => computeText(arguments) }; }
 	
-    / sep:sep char:(diagonalQuotechar / & diagonalQuote)
+    / sep:sep char:(diagonalQuoteChar / & diagonalQuote)
     { return { char: sep + char, txt: () => computeText(arguments) }; }
     
 diagonalQuote		= "`"
@@ -146,19 +146,19 @@ diagonalQuoteUeChar	= '\t' / [^\0-\x1F`]
  */
  
 braceQuoteString
-	= oq:openBrace chars:braceQuotechar* cq:closeBrace
+	= oq:openBrace chars:braceQuoteChar* cq:closeBrace
 	{
 		return { type: 'STR', value: chars.map(char => char.char).join(''), txt: () => computeText(arguments) };
 	}
 
-braceQuotechar
+braceQuoteChar
  	= char:braceQuoteUeChar
 	{ return { char: char, txt: () => computeText(arguments) }}
 	
 	/ esc:braceQuoteEscape sequence:(closeBrace)
     { return { char: sequence, txt: () => computeText(arguments) }; }
 	
-    / sep:sep char:(braceQuotechar / & closeBrace)
+    / sep:sep char:(braceQuoteChar / & closeBrace)
     { return { char: sep + char, txt: () => computeText(arguments) }; }
 
 braceQuoteEscape	= '\\'

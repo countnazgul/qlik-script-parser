@@ -1,3 +1,3 @@
 // UNKNOWN
 
-unknownBlock		= endofrow
+unknownBlock		= endOfRow

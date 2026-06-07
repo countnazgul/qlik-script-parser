@@ -27,7 +27,7 @@
 }
 
 
-QlikLogFile
+QlikScript
 	= blocks
 
 blocks
@@ -60,7 +60,7 @@ blocks
 // - SWITCH
 
 block
-	= txt:($ spaces?) & spEndofrow
+	= txt:($ spaces?) & spEndOfRow
 	{
 		return {
 			blockType: 'EMPTY',
@@ -68,7 +68,7 @@ block
 		};
 	}
 
-	/ tab:tabBlock & spEndofrow
+	/ tab:tabBlock & spEndOfRow
 	{
 		return {
 			blockType: 'TAB',
@@ -77,7 +77,7 @@ block
 		};
 	}
 
-	/ comment:scriptCommentBlock & spEndofrow
+	/ comment:scriptCommentBlock & spEndOfRow
 	{
 		return {
 			blockType: 'COMMENT',
@@ -86,7 +86,7 @@ block
 		};
 	}
 
-	/ connectBlock:connectBlock & spEndofrow
+	/ connectBlock:connectBlock & spEndOfRow
 	{
 		return {
 			blockType: 'CONNECT',
@@ -95,7 +95,7 @@ block
 		};
 	}
 
-	/ hiddenBlock:hiddenBlock & spEndofrow
+	/ hiddenBlock:hiddenBlock & spEndOfRow
 	{
 		return {
 			blockType: 'HIDDEN',
@@ -104,7 +104,7 @@ block
 		};
 	}
 
-	/ traceBlock:traceBlock & spEndofrow
+	/ traceBlock:traceBlock & spEndOfRow
 	{
 		return {
 			blockType: 'TRACE',
@@ -113,12 +113,12 @@ block
 		};
 	}
 
-	/ block:whenBlock & spEndofrow
+	/ block:whenBlock & spEndOfRow
 	{
 		return block;
 	}
 
-	/ block:blockContent & spEndofrow
+	/ block:blockContent & spEndOfRow
 	{
 		return {
 			blockType: block.type,
@@ -127,7 +127,7 @@ block
 		};
 	}
 
-	/ unknownBlock:unknownBlock & spEndofrow
+	/ unknownBlock:unknownBlock & spEndOfRow
 	{
 		return {
 			blockType: 'UNKNOWN',

@@ -6,7 +6,7 @@ directBlock			=
 		dim:( sep 'DIMENSION'i sep directBlockFields )
 		mea:( sep 'MEASURE'i sep directBlockFields )?
 		dtl:( sep 'DETAIL'i sep resources )?
-		frm:( sep 'FROM'i sep endofrow )
+		frm:( sep 'FROM'i sep endOfRow )
 		whr:( sep 'WHERE'i sep directBlockWhere )?
 		{
 			return {

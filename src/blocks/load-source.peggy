@@ -49,7 +49,7 @@ loadBlockSourceInlineRow	= endofinlinerow
 endofinlinerow				= chars:[^\]\r\n]*						{ return chars.join(""); }
 
 loadBlockSourceSQL			=
-	s:('SQL'i & ( sep 'SELECT'i ) / & 'SELECT'i )  values:(endofrow sep)* value:endofrow
+	s:('SQL'i & ( sep 'SELECT'i ) / & 'SELECT'i )  values:(endOfRow sep)* value:endOfRow
 	{
 		return {
 			loadBlockType: 'SQL',
